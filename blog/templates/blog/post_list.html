@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load humanize %}
+
+{% block title %}Главная — Мини-блог{% endblock %}
+
+{% block content %}
+<h1>Все посты</h1>
+
+{% if posts %}
+    <ul style="list-style: none; padding: 0;">
+        {% for post in posts %}
+            <li style="margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ddd;">
+                <h2>
+                    <a href="{% url 'blog:post_detail' post.pk %}">
+                        {{ post.title }}
+                    </a>
+                </h2>
+                <p>
+                    Автор: {{ post.author.username }} |
+                    Дата: {{ post.created_at|date:"d.m.Y H:i" }}
+                </p>
+                <p>{{ post.content|truncatewords:30 }}</p>
+                <a href="{% url 'blog:post_detail' post.pk %}">Читать далее...</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Постов пока нет.</p>
+{% endif %}
+{% endblock %}

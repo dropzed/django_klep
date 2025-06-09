@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block title %}Регистрация — Мини-блог{% endblock %}
+
+{% block content %}
+<h1>Регистрация</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<p>Уже есть аккаунт? <a href="{% url 'blog:login' %}">Войти</a>.</p>
+{% endblock %}

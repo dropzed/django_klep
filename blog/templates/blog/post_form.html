@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {% if is_edit %}
+        Редактировать пост — Мини-блог
+    {% else %}
+        Новый пост — Мини-блог
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if is_edit %}
+        <h1>Редактирование поста</h1>
+    {% else %}
+        <h1>Новый пост</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            {% if is_edit %}Сохранить изменения{% else %}Создать{% endif %}
+        </button>
+    </form>
+
+    <p><a href="{% url 'blog:post_list' %}">← Вернуться на главную</a></p>
+{% endblock %}

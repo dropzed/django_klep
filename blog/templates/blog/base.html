@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мини-блог{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f7f7f7;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #747582;
+            padding: 20px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+        }
+        .message.success { background: #e6ffed; color: #2d662d; }
+        .message.error { background: #ffe6e6; color: #662d2d; }
+        .message.info { background: #e6f0ff; color: #2d3b66; }
+        footer {
+            text-align: center;
+            margin: 30px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="{% url 'blog:post_list' %}">Главная</a>
+
+            {% if user.is_authenticated %}
+                <span>Привет, {{ user.username }}!</span>
+                <a href="{% url 'blog:post_create' %}">Новый пост</a>
+                <a href="{% url 'blog:logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'blog:login' %}">Вход</a>
+                <a href="{% url 'blog:register' %}">Регистрация</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="message {{ msg.tags }}">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        Джанго джанго
+    </footer>
+</body>
+</html>
