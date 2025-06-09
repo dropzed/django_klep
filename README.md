@@ -7,18 +7,18 @@
 ```bash
 
 git clone "project"
-cd mini-blog
+cd "project"
 
 python3 -m venv venv
 source venv/bin/activate
 
 pip install -r requirements.txt
 
-# Применить миграции и создать суперпользователя
+# load save db
 python manage.py migrate
 python manage.py createsuperuser
 
-# Запуск сервера
+# start
 python manage.py runserver
 
 ```
